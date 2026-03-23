@@ -24,20 +24,30 @@
 
 # Run Django development server
 dev:
+    source ./.venv/Scripts/activate
     uv run python manage.py runserver
 
 # Collect static files
 static:
+    source ./.venv/Scripts/activate
     uv run python manage.py collectstatic --no-input
 
 # Run migrations
 migrate:
+    source ./.venv/Scripts/activate
     uv run python manage.py migrate
 
 # Install dependencies from requirements.txt
 install:
     uv venv
+    source ./.venv/Scripts/activate
     uv pip install -r requirements.txt
+
+activatevenv:
+    source ./.venv/Scripts/activate
+
+deactivatevenv:
+    deactivate
 
 # remove virtual environment 
 clean:
