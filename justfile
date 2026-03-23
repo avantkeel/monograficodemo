@@ -19,31 +19,26 @@
 # To see explanation of each command run the command
 # just --list
 
-# Set up the project (create venv and install dependencies)
-install: 
-  @ echo creating virtual environment
-  python -m venv .venv
-  @ echo installing dependencies
-  ./.venv/Scripts/pip install -r requirements.txt
-  @ echo done
+# to run this scripts is required to install uv
+# https://github.com/astral-sh/uv
 
-# Remove generated files (venv and database)
+# Run Django development server
+dev:
+    uv run python manage.py runserver
+
+# Collect static files
+static:
+    uv run python manage.py collectstatic --no-input
+
+# Run migrations
+migrate:
+    uv run python manage.py migrate
+
+# Install dependencies from requirements.txt
+install:
+    uv venv
+    uv pip install -r requirements.txt
+
+# remove virtual environment 
 clean:
-  @ echo removing virtual environment
-  rm -rf .venv
-  @ echo deleting db.sqlite3 file
-  rm -rf db.sqlite3
-
-# Run the app in development mode
-run:
-  @ echo running app in development mode
-  ./.venv/Scripts/python manage.py runserver
-
-# deploy locally
-localdeploy:
-  ./.venv/Scripts/python manage.py collectstatic
-  ./.venv/Scripts/python manage.py runserver
-
-# collect Static files
-collectstatic:
-  ./.venv/Scripts/python manage.py collectstatic
+    rm -rf .venv
