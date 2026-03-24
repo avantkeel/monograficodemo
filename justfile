@@ -57,6 +57,9 @@ checkdbconnection:
     source ./.venv/Scripts/activate
     uv run python manage.py check
 
+createapp:
+    source ./.venv/Scripts/activate
+    uv run python manage.py startapp appname ./applications/appname
 
 createadminuser:
     source ./.venv/Scripts/activate
