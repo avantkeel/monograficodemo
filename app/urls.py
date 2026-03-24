@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from django.shortcuts import render  # Import render instead of HttpResponse
-from views.home import home
+from applications.core.views import home
 
 def applicationPage(request):
     # If you have an app-specific page, render it here too
