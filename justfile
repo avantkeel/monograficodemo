@@ -52,3 +52,7 @@ deactivatevenv:
 # remove virtual environment 
 clean:
     rm -rf .venv
+
+checkdbconnection:
+    source ./.venv/Scripts/activate
+    uv run python manage.py check
