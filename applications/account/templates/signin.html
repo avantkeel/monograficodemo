@@ -3,35 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AvantKeel | Sign In</title>
+    <title>{{ title }} | Sign In</title>
     {% load static %}
     <link
       rel="stylesheet"
       type="text/css"
-      href="{% static '/account/styles/signin.css'%}"
+      href="{% static 'account/styles/signin.css' %}"
     />
   </head>
   <body>
     <header>
-      <a href="#" class="logo">AvantKeel</a>
+      <a href="/" class="logo">AvantKeel</a>
       <nav>
-        <a href="#" style="text-decoration: none; color: #000">Sign Up</a>
+        <a href="/signup/" style="text-decoration: none; color: #000">Sign Up</a>
       </nav>
     </header>
 
     <main class="content-wrapper">
+      {% if messages %}
+        <ul style="color: red; list-style: none;">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
       <div class="signin-form">
         <h2>Sign In</h2>
         <p>Welcome back! Please enter your details.</p>
 
-        <form>
+        <form id="signin-form" method="POST">
+          {% csrf_token %}
           <div class="field">
             <label>Email</label>
-            <input type="email" placeholder="email@company.com" required />
+            <input type="email" name="email" placeholder="email@company.com" required />
           </div>
           <div class="field">
             <label>Password</label>
-            <input type="password" placeholder="••••••••" required />
+            <input type="password" name="password" placeholder="••••••••" required />
           </div>
 
           <div class="options">
@@ -43,11 +52,7 @@
 
         <p style="margin-top: 25px; text-align: center">
           Don't have an account?
-          <a
-            href="#"
-            style="color: #29a8e0; text-decoration: none; font-weight: bold"
-            >Sign Up</a
-          >
+          <a href="/signup/" style="color: #29a8e0; text-decoration: none; font-weight: bold">Sign Up</a>
         </p>
       </div>
     </main>
@@ -60,5 +65,33 @@
         <a href="#">Ethics</a>
       </div>
     </footer>
+
+    <script>
+      const form = document.getElementById('signin-form');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = form.email.value;
+        const password = form.password.value;
+
+        const response = await fetch("{% url 'signin' %}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          localStorage.setItem("authToken", data.token);
+          window.location.href = data.redirect;  // redirect to /profile/
+        } else {
+          alert(data.message || "Invalid credentials");
+        }
+      });
+    </script>
   </body>
 </html>

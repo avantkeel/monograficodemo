@@ -1,6 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+import secrets
+
+# todo save tokens in the dbms
+TOKENS = {}
 
 def signup(request):
     if request.method == "POST":
@@ -19,10 +26,36 @@ def signup(request):
                 last_name=" ".join(full_name.split(" ")[1:]),
             )
             messages.success(request, "Account created successfully!")
-            return redirect("/signin/")
-
+            login(request, user) 
+            return redirect("/profile/")
     return render(request, 'signup.html', {"title": "AvantKeel"})
 
 
 def signin(request):
+    if request.method == "POST":
+        import json
+        data = json.loads(request.body)
+        email = data.get("email")
+        password = data.get("password")
+
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            login(request, user)
+            token = secrets.token_hex(16)
+            TOKENS[user.username] = token
+            return JsonResponse({"success": True, "token": token, "redirect": "/profile/"})
+        else:
+            return JsonResponse({"success": False, "message": "Invalid credentials"})
+
     return render(request, 'signin.html', {"title": "AvantKeel"})
+
+
+@login_required
+def profile(request):
+    user = request.user
+    return render(request, 'profile.html', {"user": user, "title": "Profile"})
+
+
+def signout(request):
+    logout(request)
+    return redirect('/signin/')
