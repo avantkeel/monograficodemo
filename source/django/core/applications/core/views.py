@@ -5,4 +5,4 @@ def home(request):
     context = {
         "title": "AvantKeel"
     }
-    return render(request, 'home.html', context)
+    return render(request, 'core/home.html', context)
