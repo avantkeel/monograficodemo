@@ -6,3 +6,7 @@ python-dotenv==1.2.2
 sqlparse==0.5.5
 typing-extensions==4.15.0
 tzdata==2025.3
+
+
+# core components:
+-e ../templates/core_button/ # core button
