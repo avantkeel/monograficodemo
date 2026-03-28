@@ -7,9 +7,6 @@ from rest_framework.response import Response
 def hello_world(request):
     return Response({"message": "Hello, World!"})
 
-
-
-
 def home(request):
     context = {
         "title": "AvantKeel"
