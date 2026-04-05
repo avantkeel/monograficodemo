@@ -1,14 +1,17 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from utils.adapters.httpAdapter import Request , Response
+from .handler.hello.HelloHandler import HelloHandler
 
 employees = []
 
-
+@csrf_exempt
 def hello_view(request):
-    return JsonResponse({
-        "message": "Hello, world!"
-    })
+    req = Request(request)
+    res = Response()
+    HelloHandler(req, res)
+    return JsonResponse(res.data, status=res.status)
 
 
 def createEmployee(body):
