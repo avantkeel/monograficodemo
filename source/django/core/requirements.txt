@@ -1,10 +1,24 @@
-# Core project dependencies
-asgiref==3.11.1
-django==6.0.3
-psycopg==3.3.3
-psycopg-binary==3.3.3
-python-dotenv==1.2.2
-sqlparse==0.5.5
-typing-extensions==4.15.0
-tzdata==2025.3
-djangorestframework==3.17.1
+# --- Django Core Framework ---
+django==6.0.3                  # The main web framework
+asgiref==3.11.1                # Standard for asynchronous Python support in Django (Handles ASGI/Sync conversion)
+tzdata==2025.3                 # Provides timezone database support (Required for modern Django versions)
+sqlparse==0.5.5                # Helps Django format and parse SQL queries for better logging/debugging
+
+# --- Database & SQL (PostgreSQL) ---
+psycopg==3.3.3                 # The modern Python adapter for PostgreSQL databases
+psycopg-binary==3.3.3          # The pre-compiled binary for psycopg (Makes installation faster/easier)
+
+# --- Utilities & Compatibility ---
+python-dotenv==1.2.2           # Loads configuration and secrets from a .env file instead of hardcoding them
+typing-extensions==4.15.0      # Backports newer Python type-hinting features to older Python versions
+
+# --- API Development (Django Rest Framework) ---
+djangorestframework==3.17.1  # Toolkit for building Web APIs (The "Package for the API")
+
+# --- Email Validation Suite ---
+email-validator==2.3.0         # Main library to verify email syntax and check if a domain can actually receive mail
+dnspython==2.8.0               # Used by email-validator to perform DNS lookups (verifies if the domain/MX records exist)
+
+idna==3.11                     # Handles Internationalized Domain Names (e.g., converting 'ñ' or non-Latin characters   into a format that DNS servers can understand)
+# -------------------------------------------------------------------------------------------------
+
