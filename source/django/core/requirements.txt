@@ -18,7 +18,5 @@ djangorestframework==3.17.1  # Toolkit for building Web APIs (The "Package for t
 # --- Email Validation Suite ---
 email-validator==2.3.0         # Main library to verify email syntax and check if a domain can actually receive mail
 dnspython==2.8.0               # Used by email-validator to perform DNS lookups (verifies if the domain/MX records exist)
-
 idna==3.11                     # Handles Internationalized Domain Names (e.g., converting 'ñ' or non-Latin characters   into a format that DNS servers can understand)
 # -------------------------------------------------------------------------------------------------
-
