@@ -10,12 +10,10 @@ employees = []
 @csrf_exempt
 def signup(request):
     if request.method == "POST":
-        req = Request(request);
-        res = Response()
         try:
-            # body = json.loads(request.body)
-            answare = handleSignup(req,res)
-
+            req = Request(request);
+            res = Response()
+            handleSignup(req,res)
             return JsonResponse(res.data,status=res.status)
 
         except json.JSONDecodeError:
