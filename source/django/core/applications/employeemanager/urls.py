@@ -1,7 +1,6 @@
 from django.urls import path
-from .views import employeemanager, employee_api
+from .views import employeemanager
 
 urlpatterns = [
-    path("", employeemanager, name="employee"),          # UI
-    path("api/", employee_api, name="employee_api"),     # API
+    path("", employeemanager, name="employee"),
 ]
