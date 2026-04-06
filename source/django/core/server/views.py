@@ -3,78 +3,67 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from utils.adapters.httpAdapter import Request , Response
 from .handler.hello.HelloHandler import HelloHandler
+from .models import User
+from django.contrib.auth.hashers import make_password
+from django.db import IntegrityError
+
 
 employees = []
 
+
 def handleSignup(req: Request, res: Response):
-    successResponse = {
-        "success": True,
-        "message": "Account created successfully",
-        "data": {
-            "user": {
-                "id": "f93dfe6a-0eaf-4c01-ab59-6d6745e6945b",
-                "username": "henry",
-                "email": "someone@example.com",
-                "display_name": "someone",
-                "locale": "en-US",
-                "timezone": "America/Santo_Domingo",
-                "email_verified": False,
-                "created_at": "2026-03-14T21:05:22Z"
-            },
-            "session": {
-                "session_id": "sess_7c82fa91",
-                "device": {
-                    "name": "Henry's Laptop",
-                    "type": "desktop"
-                },
-                "created_at": "2026-03-14T21:05:22Z",
-                "tokens": {
-                    "access_token": "access_token",
-                    "refresh_token": "refresh_token",
-                    "expires_in": 3600
+    try:
+        # 1. Basic validation (ensure keys exist)
+        data = req.body
+        required_fields = ["username", "email", "firstname", "lastname", "password"]
+        if not all(k in data for k in required_fields):
+            res.json({"success": False, "message": "Missing fields"}, status=400)
+            return
+
+        # 2. Create user and HASH the password
+        new_user = User(
+            username=data["username"],
+            email=data["email"],
+            firstname=data["firstname"],
+            lastname=data["lastname"],
+            # make_password handles the PBKDF2 hashing for you
+            passwordhash=make_password(data["password"]) 
+        )
+        
+        new_user.save()
+
+        # 3. Build response from the ACTUAL saved object
+        myResponse = {
+            "success": True,
+            "message": "Account created successfully",
+            "data": {
+                "user": {
+                    "id": new_user.id,
+                    "username": new_user.username,
+                    "email": new_user.email,
                 }
             }
         }
-    }
+        res.json(myResponse, status=201)
 
-    fieldErrorResponse = {
-        "success": False,
-        "message": "There where an error in one of the fields",
-        "error": {
-            "type": "CONFLICT",
-            "code": "FIELDERROR",
-            "fields": {
-                "username": {
-                    "message": "",
-                    "errorcode": "",
-                    "haserror": False,                    
-                },
-                "firstname": {
-                    "message": "",
-                    "errorcode": "",
-                    "haserror": False
+    except IntegrityError:
+        # This catches duplicate usernames/emails based on your model constraints
+        res.json({
+            "success": False, 
+            "message": "Username or Email already exists"
+        }, status=409)
+        
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        res.json({
+            "success": False, 
+            "message": "An internal error occurred"
+        }, status=500)
 
-                },
-                "lastname": {
-                    "message": "",
-                    "errorcode": "",
-                    "haserror": False
-                },
-                "email": {
-                    "message": "",
-                    "errorcode": "",
-                    "haserror": False
-                },
-                "password": {
-                    "message": "",
-                    "errorcode": "",
-                    "haserror": False
-                },
-            }
-        }
-    }
 
-    res.json( fieldErrorResponse , status=400)
+
+
+    
 
 
 @csrf_exempt
