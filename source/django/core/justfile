@@ -80,3 +80,6 @@ createmigration:
     uv run python manage.py makemigrations # Generate migrations
     uv run python manage.py migrate # apply the migration
 
+
+showmigrations:
+    uv run python manage.py showmigrations
