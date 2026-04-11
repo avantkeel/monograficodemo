@@ -173,6 +173,69 @@
       font-size: 11px;
       color: #6b7280;
     }
+
+
+
+
+
+
+
+
+
+    /* MODAL */
+    /* MODAL OVERLAY */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+/* MODAL BOX */
+.modal-box {
+  width: 320px;
+  background: white;
+  border: 1px solid #f3f4f6;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.modal-box h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* INPUTS */
+.modal-box input,
+.modal-box textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.modal-box textarea {
+  resize: none;
+  height: 70px;
+}
+
+/* BUTTON ROW */
+.modal-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* SECONDARY BUTTON */
+.btn.secondary {
+  background: #f3f4f6;
+  color: #1f2937;
+}
   </style>
 </head>
 
@@ -191,7 +254,7 @@
 
   <div class="sidebar-title" style="margin-top:15px;">ACTIONS</div>
 
-  <button class="btn">Create Team</button>
+  <button class="btn" onclick="openModal()">Create Team</button>
 
   <!-- USER -->
   <div class="user-card">
@@ -254,6 +317,39 @@
 </main>
 
 </div>
+
+
+
+
+
+
+<!-- CREATE TEAM MODAL -->
+<div class="modal" id="teamModal">
+  <div class="modal-box">
+
+    <h3>Create Team</h3>
+
+    <input type="text" placeholder="Team name" />
+    <textarea placeholder="Description"></textarea>
+    <input type="text" placeholder="Add members (comma separated)" />
+
+    <div class="modal-actions">
+      <button class="btn secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn">Create</button>
+    </div>
+
+  </div>
+</div>
+<script>
+function openModal() {
+  document.getElementById("teamModal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("teamModal").style.display = "none";
+}
+</script>
+
 
 </body>
 </html>
