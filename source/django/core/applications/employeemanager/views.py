@@ -5,7 +5,10 @@ from .models import Team
 
 @login_required
 def teambase(request):
-    return render(request, "employeemanager/teambase.html")
+    teams = Team.objects.all()
+    return render(request, "employeemanager/teambase.html", {
+        "teams": teams
+    })
 
 
 @login_required
@@ -20,4 +23,4 @@ def create_team(request):
             submitted_by=request.user
         )
 
-    return redirect("/")
+    return redirect("/app")

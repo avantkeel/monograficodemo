@@ -56,38 +56,26 @@
       <main class="content-wrapper">
         <h2>Choose a Team</h2>
 
+        <!-- ############################################## -->
+
         <div class="team-list">
+          {% for team in teams %}
           <div class="team">
             <div>
-              Design Team
-              <div class="team-meta">3 members</div>
+              {{ team.name }}
+              <div class="team-meta">
+                {{ team.description|default:"No description" }}
+              </div>
             </div>
             <div class="team-meta">→</div>
           </div>
+          {% empty %}
+          <div class="team">
+            <div>No teams yet</div>
+          </div>
+          {% endfor %}
 
-          <div class="team">
-            <div>
-              Engineering Team
-              <div class="team-meta">5 members</div>
-            </div>
-            <div class="team-meta">→</div>
-          </div>
-
-          <div class="team">
-            <div>
-              Marketing Team
-              <div class="team-meta">2 members</div>
-            </div>
-            <div class="team-meta">→</div>
-          </div>
-
-          <div class="team">
-            <div>
-              Operations Team
-              <div class="team-meta">4 members</div>
-            </div>
-            <div class="team-meta">→</div>
-          </div>
+          <!-- ############################################## -->
         </div>
       </main>
     </div>
