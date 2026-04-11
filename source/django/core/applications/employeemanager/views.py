@@ -10,6 +10,12 @@ def teambase(request):
         "teams": teams
     })
 
+@login_required
+def delete_team(request, team_id):
+    if request.method == "POST":
+        Team.objects.filter(id=team_id, submitted_by=request.user).delete()
+
+    return redirect("/app/")
 
 @login_required
 def create_team(request):

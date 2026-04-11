@@ -57,7 +57,6 @@
         <h2>Choose a Team</h2>
 
         <!-- ############################################## -->
-
         <div class="team-list">
           {% for team in teams %}
           <div class="team">
@@ -67,7 +66,25 @@
                 {{ team.description|default:"No description" }}
               </div>
             </div>
-            <div class="team-meta">→</div>
+
+            <!-- ACTION MENU -->
+            <div class="team-actions">
+              <button
+                class="team-menu-btn"
+                onclick="toggleTeamMenu(event, {{ team.id }})"
+              >
+                ⋯
+              </button>
+
+              <div class="team-menu" id="menu-{{ team.id }}">
+                <form method="POST" action="/app/delete-team/{{ team.id }}/">
+                  {% csrf_token %}
+                  <button type="submit" class="team-menu-item danger">
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
           {% empty %}
           <div class="team">
@@ -137,6 +154,28 @@
       function logoutUser() {
         window.location.href = "/signout";
       }
+
+      // delete team
+
+      function toggleTeamMenu(event, id) {
+        event.stopPropagation();
+
+        const menu = document.getElementById("menu-" + id);
+
+        // close all others
+        document.querySelectorAll(".team-menu").forEach((m) => {
+          if (m !== menu) m.style.display = "none";
+        });
+
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+      }
+
+      document.addEventListener("click", () => {
+        document.querySelectorAll(".team-menu").forEach((m) => {
+          m.style.display = "none";
+        });
+      });
+
     </script>
   </body>
 </html>
