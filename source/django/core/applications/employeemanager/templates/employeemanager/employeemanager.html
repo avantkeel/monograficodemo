@@ -236,6 +236,38 @@
   background: #f3f4f6;
   color: #1f2937;
 }
+
+
+
+/* USER MENU DROPDOWN */
+.user-menu {
+  position: absolute;
+  bottom: 80px;
+  left: 20px;
+  width: 180px;
+  background: white;
+  border: 1px solid #f3f4f6;
+  border-radius: 8px;
+  display: none;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.menu-item {
+  padding: 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: #fafafa;
+}
+
+.menu-item.danger {
+  color: #dc2626;
+}
+
+
   </style>
 </head>
 
@@ -257,15 +289,39 @@
   <button class="btn" onclick="openModal()">Create Team</button>
 
   <!-- USER -->
-  <div class="user-card">
+  <div class="user-card" onclick="toggleUserMenu()">
     <div class="avatar">H</div>
     <div>
-      <div class="user-name">Henry Ramirez</div>
+      <div class="user-name">Henry E. Ramirez</div>
       <div class="user-role">Team Member</div>
     </div>
   </div>
 
+
+
+  <!-- USER MENU -->
+  <div class="user-menu" id="userMenu">
+    <div class="menu-item">Settings</div>
+    <div class="menu-item danger" onclick="logoutUser()">Logout</div>
+  </div>
+
+
+
+
+
+
 </aside>
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- MAIN -->
 <div class="main">
@@ -348,6 +404,29 @@ function openModal() {
 function closeModal() {
   document.getElementById("teamModal").style.display = "none";
 }
+
+
+/* User menu */
+function toggleUserMenu() {
+  const menu = document.getElementById("userMenu");
+  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+  menu.style.flexDirection = "column";
+}
+
+document.addEventListener("click", function (e) {
+  const menu = document.getElementById("userMenu");
+  const userCard = document.querySelector(".user-card");
+
+  if (!menu.contains(e.target) && !userCard.contains(e.target)) {
+    menu.style.display = "none";
+  }
+});
+
+function logoutUser() {
+  window.location.href = "/signout";
+}
+
+
 </script>
 
 
