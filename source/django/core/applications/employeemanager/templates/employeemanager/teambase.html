@@ -4,12 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TeamBase | Choose Team</title>
+
     {% load static %}
     <link
       rel="stylesheet"
       type="text/css"
       href="{% static 'employeemanager/employeemanager.css' %}"
     />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
       rel="stylesheet"
@@ -56,10 +58,11 @@
       <main class="content-wrapper">
         <h2>Choose a Team</h2>
 
-        <!-- ############################################## -->
         <div class="team-list">
           {% for team in teams %}
-          <div class="team">
+
+          <!-- TEAM CARD (click → workspace) -->
+          <div class="team" onclick="goToWorkspace({{ team.id }})">
             <div>
               {{ team.name }}
               <div class="team-meta">
@@ -67,8 +70,8 @@
               </div>
             </div>
 
-            <!-- ACTION MENU -->
-            <div class="team-actions">
+            <!-- ACTION MENU (NO navigation conflict) -->
+            <div class="team-actions" onclick="event.stopPropagation()">
               <button
                 class="team-menu-btn"
                 onclick="toggleTeamMenu(event, {{ team.id }})"
@@ -86,13 +89,12 @@
               </div>
             </div>
           </div>
+
           {% empty %}
           <div class="team">
             <div>No teams yet</div>
           </div>
           {% endfor %}
-
-          <!-- ############################################## -->
         </div>
       </main>
     </div>
@@ -106,7 +108,6 @@
           {% csrf_token %}
 
           <input type="text" name="name" placeholder="Team name" required />
-
           <textarea name="description" placeholder="Description"></textarea>
 
           <input
@@ -135,7 +136,7 @@
         document.getElementById("teamModal").style.display = "none";
       }
 
-      /* User menu */
+      /* USER MENU */
       function toggleUserMenu() {
         const menu = document.getElementById("userMenu");
         menu.style.display = menu.style.display === "flex" ? "none" : "flex";
@@ -155,14 +156,12 @@
         window.location.href = "/signout";
       }
 
-      // delete team
-
+      /* TEAM MENU */
       function toggleTeamMenu(event, id) {
         event.stopPropagation();
 
         const menu = document.getElementById("menu-" + id);
 
-        // close all others
         document.querySelectorAll(".team-menu").forEach((m) => {
           if (m !== menu) m.style.display = "none";
         });
@@ -176,6 +175,10 @@
         });
       });
 
+      /* WORKSPACE NAVIGATION */
+      function goToWorkspace(id) {
+        window.location.href = `/app/team/${id}/workspace/`;
+      }
     </script>
   </body>
 </html>

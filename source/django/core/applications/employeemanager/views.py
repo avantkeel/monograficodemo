@@ -11,6 +11,14 @@ def teambase(request):
     })
 
 @login_required
+def team_workspace(request, team_id):
+    team = Team.objects.get(id=team_id, submitted_by=request.user)
+
+    return render(request, "employeemanager/workspace.html", {
+        "team": team
+    })
+
+@login_required
 def delete_team(request, team_id):
     if request.method == "POST":
         Team.objects.filter(id=team_id, submitted_by=request.user).delete()
