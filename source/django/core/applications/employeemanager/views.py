@@ -5,7 +5,7 @@ from .models import Team
 
 @login_required
 def teambase(request):
-    teams = Team.objects.all()
+    teams = Team.objects.filter(submitted_by=request.user)
     return render(request, "employeemanager/teambase.html", {
         "teams": teams
     })
