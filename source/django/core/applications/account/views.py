@@ -27,7 +27,7 @@ def signup(request):
             )
             messages.success(request, "Account created successfully!")
             login(request, user) 
-            return redirect("/profile/")
+            return redirect("/app/")
     return render(request, 'signup.html', {"title": "AvantKeel"})
 
 def signin(request):
