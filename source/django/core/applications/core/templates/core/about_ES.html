@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - TeamBase</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: #ffffff;
+        color: #1f2937;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: auto;
+        padding: 40px 20px;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 60px;
+      }
+
+      .logo {
+        font-weight: 600;
+        font-size: 16px;
+      }
+
+      nav a {
+        margin-left: 24px;
+        text-decoration: none;
+        color: #6b7280;
+        font-size: 13px;
+      }
+
+      nav a:hover {
+        color: #111;
+      }
+
+      .title {
+        font-size: 42px;
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+      }
+
+      .subtitle {
+        color: #6b7280;
+        margin-bottom: 40px;
+        max-width: 600px;
+      }
+
+      .section {
+        margin-bottom: 60px;
+      }
+
+      .section h2 {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+
+      .section p {
+        color: #6b7280;
+        line-height: 1.6;
+      }
+
+      .image {
+        margin: 30px 0;
+      }
+
+      .image img {
+        width: 100%;
+        border-radius: 12px;
+      }
+
+      .team {
+        margin-top: 20px;
+      }
+
+      .team-member {
+        padding: 12px 0;
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      .team-member strong {
+        display: block;
+        font-size: 14px;
+      }
+
+      .team-member span {
+        font-size: 13px;
+        color: #6b7280;
+      }
+
+      .tag {
+        display: inline-block;
+        background: #f3f4f6;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo"><a href="/">TeamBase</a></div>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/about/">Learn</a>
+          <a href="/app">App</a>
+        </nav>
+      </header>
+
+      <!-- TITLE -->
+      <div class="section">
+        <div class="tag">Monográfico</div>
+        <h1 class="title">About TeamBase</h1>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="section">
+        <h2>¿Qué es TeamBase?</h2>
+        <p>
+          TeamBase es una aplicación de colaboración / herramienta colaborativa
+          donde los usuarios pueden interactuar con datos de empleados de manera
+          organizada. El objetivo es proporcionar una interfaz limpia y
+          comprensible que permita a los usuarios colaborar.
+        </p>
+
+        <div class="image">
+          <img
+            src="https://images.unsplash.com/photo-1552664730-d307ca884978"
+          />
+        </div>
+
+        <p>
+          En lugar de centrarse en la complejidad, la aplicación enfatiza la
+          claridad y la usabilidad.
+        </p>
+      </div>
+      <!-- TEAM -->
+      <div class="section">
+        <h2>Team</h2>
+
+        <div class="team">
+          <div class="team-member">
+            <strong>Henry Edilio Ramirez Chevalier</strong>
+            <span><strong>Matricula: 100498807</strong></span>
+            <span>Lead Developer</span>
+            <br />
+            <span>System Architect</span>
+            <br />
+            <span>UI/UX</span>
+            <br />
+            <span>CI/CD</span>
+          </div>
+
+          <div class="team-member">
+            <strong>Miguel Angel Mendez</strong>
+            <span><strong>Matricula: 100281535</strong></span>
+            <span>Project Contributor</span>
+            <br />
+            <span>Technical Asistant</span>
+          </div>
+
+          <div class="team-member">
+            <strong>Roslyn Cruz</strong>
+            <span><strong>Matricula: AA-7473</strong></span>
+            <span>consultant</span>
+            <br />
+            <span>Technical Writer</span>
+            <br />
+            <span>Documentation</span>
+            <br />
+            <span>Utilities Developer</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

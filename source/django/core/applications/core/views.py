@@ -14,4 +14,4 @@ def home(request):
     return render(request, 'core/home.html', context)
 
 def learnmore(request):
-    return render(request, 'core/about.html')
+    return render(request, 'core/about_ES.html')
