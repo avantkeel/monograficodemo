@@ -38,6 +38,16 @@ def delete_team(request, team_id):
     return redirect("/app/")
 
 @login_required
+def delete_task(request, task_id):
+    if request.method == "POST":
+        task = get_object_or_404(Todo, id=task_id, team__submitted_by=request.user)
+        team_id = task.team.id
+        task.delete()
+
+        return redirect("team_workspace", team_id=team_id)
+    
+
+@login_required
 def create_team(request):
     if request.method == "POST":
         name = request.POST.get("name")
@@ -51,3 +61,5 @@ def create_team(request):
             )
 
     return redirect("/app/")
+
+

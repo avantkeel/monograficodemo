@@ -330,8 +330,26 @@
               <div class="meta">by {{ task.assigned_to.username }}</div>
             </div>
 
-            <div class="status">
-              {% if task.is_completed %} Done {% else %} To Do {% endif %}
+            <div style="display: flex; align-items: center; gap: 10px">
+              <div class="status">
+                {% if task.is_completed %} Done {% else %} To Do {% endif %}
+              </div>
+
+              <!-- DELETE TASK -->
+              <form method="POST" action="/app/delete-task/{{ task.id }}/">
+                {% csrf_token %}
+                <button
+                  type="submit"
+                  style="
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    color: #ef4444;
+                  "
+                >
+                  ✕
+                </button>
+              </form>
             </div>
           </div>
           {% empty %}
@@ -341,6 +359,7 @@
           </div>
           {% endfor %}
         </div>
+        
       </main>
     </div>
 
