@@ -1,98 +1,223 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AvantKeel | Employee Application</title>
-    {% load static %}
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'core/styles/employeemanager.css' %}"
-    />
-  </head>
-  <body>
-    {% include "core/header.html" %}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TeamBase | Employee Application</title>
+  {% load static %}
 
-    <main class="content-wrapper">
-      <h2>Aplicación de Gestión de Empleados</h2>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-      <!-- Form -->
-      <form
-        method="POST"
-        action="#"
-        class="app-form"
-        id="employeeForm"
-      >
-        {% csrf_token %}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
 
-        <div class="field">
-          <label>Primer Nombre</label>
-          <input type="text" id="fname" name="fname" placeholder="Ingresar nombre" required />
-        </div>
+    body {
+      background: #ffffff;
+      color: #1f2937;
+    }
 
-        <div class="field">
-          <label>Apellido</label>
-          <input type="text" id="lname" name="lname" placeholder="Ingresar Apellido" required />
-        </div>
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 1px solid #f3f4f6;
+    }
 
-        <div class="field">
-          <label>Role</label>
-          <select id="role" name="role">
-            <option value="Chief Executive Officer">Chief Executive Officer (CEO)</option>
-            <option value="Chief Operating Officer">Chief Operating Officer (COO)</option>
-            <option value="Chief Financial Officer">Chief Financial Officer (CFO)</option>
-            <option value="Office Manager">Office Manager</option>
-            <option value="Human Resources Manager">Human Resources Manager</option>
-            <option value="Recruiter">Recruiter</option>
-            <option value="Accountant">Accountant</option>
-            <option value="Administrative Assistant">Administrative Assistant</option>
-            <option value="Executive Assistant">Executive Assistant</option>
-            <option value="Project Manager">Project Manager</option>
-            <option value="Product Manager">Product Manager</option>
-            <option value="Software Developer">Software Developer</option>
-            <option value="IT Support Specialist">IT Support Specialist</option>
-            <option value="Data Analyst">Data Analyst</option>
-            <option value="Marketing Manager">Marketing Manager</option>
-            <option value="Sales Representative">Sales Representative</option>
-            <option value="Customer Support Specialist">Customer Support Specialist</option>
-            <option value="Operations Coordinator">Operations Coordinator</option>
-            <option value="Legal Advisor">Legal Advisor</option>
-            <option value="Receptionist">Receptionist</option>
-          </select>
-        </div>
+    .logo {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1f2937;
+      text-decoration: none;
+    }
 
-        <div class="field">
-          <label>Cuenta de correo</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="jhon@example.com"
-            required
-          />
-        </div>
+    .content-wrapper {
+      max-width: 1100px;
+      margin: auto;
+      padding: 50px 20px;
+    }
 
-        <button type="submit" class="submit-btn">Anadir a la lista</button>
-      </form>
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
 
-      <!-- list employees -->
-      <h2>Revisar lista</h2>
-      <div class="table-container">
-        <table id="employeeTable">
-          <thead>
-            <tr>
-              <th>Primer nombre</th>
-              <th>Apellido</th>
-              <th>Role</th>
-              <th>Correo</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </main>
+    /* Form */
+    .app-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+      border: 1px solid #f3f4f6;
+      padding: 20px;
+      border-radius: 6px;
+    }
 
-    {% include "core/footer.html" %}
-  </body>
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field label {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .field input,
+    .field select {
+      padding: 10px;
+      border: 1px solid #e5e7eb;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      outline: none;
+      border-color: #1f2937;
+    }
+
+    .submit-btn {
+      grid-column: 1 / -1;
+      padding: 10px;
+      background: #1f2937;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: #111827;
+    }
+
+    /* Table */
+    .table-container {
+      margin-top: 10px;
+      border: 1px solid #f3f4f6;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead {
+      background: #f9fafb;
+    }
+
+    th {
+      text-align: left;
+      padding: 12px;
+      font-weight: 500;
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    td {
+      padding: 12px;
+      border-top: 1px solid #f3f4f6;
+    }
+
+    tr:hover {
+      background: #fafafa;
+    }
+
+    @media (max-width: 768px) {
+      .app-form {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <a href="/" class="logo">TeamBase</a>
+</header>
+
+<main class="content-wrapper">
+
+  <h2>Employee Management</h2>
+
+  <form method="POST" class="app-form" id="employeeForm">
+    {% csrf_token %}
+
+    <div class="field">
+      <label>First Name</label>
+      <input type="text" name="fname" required />
+    </div>
+
+    <div class="field">
+      <label>Last Name</label>
+      <input type="text" name="lname" required />
+    </div>
+
+    <div class="field">
+      <label>Role</label>
+      <select name="role">
+        <option>Chief Executive Officer</option>
+        <option>Chief Operating Officer</option>
+        <option>Chief Financial Officer</option>
+        <option>Office Manager</option>
+        <option>Human Resources Manager</option>
+        <option>Recruiter</option>
+        <option>Accountant</option>
+        <option>Administrative Assistant</option>
+        <option>Executive Assistant</option>
+        <option>Project Manager</option>
+        <option>Product Manager</option>
+        <option>Software Developer</option>
+        <option>IT Support Specialist</option>
+        <option>Data Analyst</option>
+        <option>Marketing Manager</option>
+        <option>Sales Representative</option>
+        <option>Customer Support Specialist</option>
+        <option>Operations Coordinator</option>
+        <option>Legal Advisor</option>
+        <option>Receptionist</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input type="email" name="email" required />
+    </div>
+
+    <button type="submit" class="submit-btn">Add Employee →</button>
+  </form>
+
+  <h2>Employee List</h2>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Role</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+</main>
+
+</body>
 </html>
