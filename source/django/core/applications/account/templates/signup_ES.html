@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} | TeamBase</title>
+    {% load static %}
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+        color: #1f2937;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 40px;
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      .logo {
+        font-size: 15px;
+        font-weight: 600;
+        color: #1f2937;
+        text-decoration: none;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #6b7280;
+        font-size: 13px;
+      }
+
+      nav a:hover {
+        color: #1f2937;
+      }
+
+      .content-wrapper {
+        min-height: calc(100vh - 160px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 60px 20px;
+      }
+
+      .signup-form {
+        width: 100%;
+        max-width: 340px;
+      }
+
+      .signup-form h2 {
+        font-size: 26px;
+        margin-bottom: 20px;
+        font-weight: 600;
+        letter-spacing: -0.3px;
+      }
+
+      .field {
+        margin-bottom: 14px;
+      }
+
+      .field label {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 12px;
+        color: #6b7280;
+      }
+
+      .field input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #e5e7eb;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .field input:focus {
+        outline: none;
+        border-color: #1f2937;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 10px;
+        background: #1f2937;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 13px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      .submit-btn:hover {
+        background: #111827;
+      }
+
+      .footer-simple {
+        border-top: 1px solid #f3f4f6;
+        padding: 30px 20px;
+        text-align: center;
+        font-size: 12px;
+        color: #9ca3af;
+      }
+
+      .footer-simple a {
+        color: #6b7280;
+        text-decoration: none;
+        margin: 0 8px;
+        font-size: 12px;
+      }
+
+      .footer-simple a:hover {
+        color: #1f2937;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <a href="/" class="logo">TeamBase</a>
+      <nav>
+        <a href="/signin/">Iniciar Session</a>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+      {% if messages %}
+      <ul style="color: red; list-style: none; margin-bottom: 20px">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <div class="signup-form">
+        <h2>Crea tu cuenta</h2>
+
+        <form method="POST">
+          {% csrf_token %}
+
+          <div class="field">
+            <label>Nombre</label>
+            <input type="text" name="full_name" required />
+          </div>
+
+          <div class="field">
+            <label>Apellido</label>
+            <input type="text" name="full_name" required />
+          </div>
+
+          <div class="field">
+            <label>Email</label>
+            <input type="email" name="email" required />
+          </div>
+
+          <div class="field">
+            <label>Contrasena</label>
+            <input type="password" name="password" required />
+          </div>
+
+          
+          <button type="submit" class="submit-btn">Crear cuenta →</button>
+        </form>
+
+        <p style="margin-top: 16px; font-size: 12px; color: #6b7280">
+          Al crear una cuenta, aceptas los
+          <a href="#" style="color: #1f2937; text-decoration: underline"
+            >Terminos de uso</a
+          >.
+        </p>
+      </div>
+    </main>
+
+    <footer class="footer-simple">
+      <p>© 2026 TeamBase</p>
+      <div style="margin-top: 8px">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+      </div>
+    </footer>
+  </body>
+</html>
