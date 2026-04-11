@@ -24,7 +24,7 @@ Fecha de entrega: **2026/03/29**
 
 ## deployment
 
-Para probar la aplicacion Funcionando en linea [aga click aqui](https://monograficodemo.avantkeel.com) o de forma local una vez configurado postgresql, las dependencias de python de el projecto y el archivo .env ir a http://localhost:8000/app/ 
+Para probar la aplicacion Funcionando en linea [aga click aqui](https://silenteuclid.xyz/) o de forma local una vez configurado postgresql, las dependencias de python de el projecto y el archivo .env ir a http://localhost:8000/app/ 
 
 
 ## Repositorio
