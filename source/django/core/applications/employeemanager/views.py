@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Team
 
 
@@ -12,7 +12,7 @@ def teambase(request):
 
 @login_required
 def team_workspace(request, team_id):
-    team = Team.objects.get(id=team_id, submitted_by=request.user)
+    team = get_object_or_404(Team, id=team_id, submitted_by=request.user)
 
     return render(request, "employeemanager/workspace.html", {
         "team": team
@@ -36,5 +36,4 @@ def create_team(request):
             description=description,
             submitted_by=request.user
         )
-
-    return redirect("/app")
+    return redirect("/app/")
