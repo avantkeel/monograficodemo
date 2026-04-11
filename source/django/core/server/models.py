@@ -1,3 +1,7 @@
+# ⚠️ Deprecated module
+# This code is no longer maintained.
+# Do not use for new features.
+
 from django.db import models
 
 class User(models.Model):

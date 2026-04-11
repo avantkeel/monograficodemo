@@ -1,3 +1,7 @@
+# ⚠️ Deprecated module
+# This code is no longer maintained.
+# Do not use for new features.
+
 from django.apps import AppConfig
 
 class ServerConfig(AppConfig):

@@ -1,3 +1,6 @@
+# ⚠️ Deprecated module
+# This code is no longer maintained.
+# Do not use for new features.
 from django.contrib import admin
 from .models import User
 
